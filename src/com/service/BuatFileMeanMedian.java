@@ -1,15 +1,21 @@
 package com.service;
 
 import com.model.impl.BuatFile;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.channels.FileChannel;
+import java.util.*;
+
+@Setter
+@Getter
 
 public class BuatFileMeanMedian implements BuatFile {
     protected static FileWriter file;
     private List<Double> listNilai;
+    private Map<Double,Integer> mapModus;
 
     public BuatFileMeanMedian(List<Double> listNilai) {
         this.listNilai = listNilai;
@@ -29,7 +35,7 @@ public class BuatFileMeanMedian implements BuatFile {
     private double Median(){
         List<Double> newListNilai = new ArrayList<>(this.listNilai);
 
-        newListNilai.sort();
+        Collections.sort(newListNilai);
 
         Integer jumahData = this.listNilai.size();
 
@@ -45,14 +51,30 @@ public class BuatFileMeanMedian implements BuatFile {
         return newListNilai.get(middleValue);
     }
 
+//    private Double Modus(){
+//        Double maxValue = 0.0;
+//
+//        for (Map.Entry<Double,Integer> entry : this.mapModus.entrySet()){
+//            Integer max = 0,buffer;
+//
+//            if (entry.getValue()>max){
+//                maxValue = entry.getKey();
+//                max = entry.getValue();
+//            }
+//
+//        }
+//
+//        return maxValue;
+//    }
+
     public void CetakFile(){
 
         try{
             file = new FileWriter("data_sekolah_mean_median.txt");
             file.write("Berikut Hasil Pengolahan Nilai:\n");
             file.write("Nilai Mean      :"+this.Mean()+"\n");
-            file.write("Nilai Median    :"+this.Median());
-
+            file.write("Nilai Median    :"+this.Median()+"\n");
+//            file.write("Nilai Median    :"+this.Modus()+"\n");
             file.close();
 
         }catch (IOException e) {

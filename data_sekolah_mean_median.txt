@@ -1,3 +1,0 @@
-Berikut Hasil Pengolahan Nilai:
-Nilai Mean      :8.318181818181818
-Nilai Median    :7.0
