@@ -16,7 +16,7 @@ public class BacaFile {
 
     public static Sekolah baca(){
         try{
-            BufferedReader br = new BufferedReader(new FileReader("D:\\Mine\\Downloads\\data_sekolah.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("data_sekolah.csv"));
 
             String line = "";
 
