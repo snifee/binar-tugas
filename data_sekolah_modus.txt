@@ -1,8 +1,8 @@
 Berikut Hasil Pengolahan Nilai:
 Nilai			|	Frekuensi
-5.0			|	1
-6.0			|	2
-7.0			|	62
 8.0			|	42
 9.0			|	50
+kurang dari 6			|	1
 10.0			|	41
+6.0			|	2
+7.0			|	62

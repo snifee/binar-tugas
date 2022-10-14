@@ -1,6 +1,5 @@
 package com.model;
 
-import com.model.impl.ImpSekolah;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import java.util.List;
 @Setter
 @Getter
 
-public class Sekolah implements ImpSekolah {
+public class Sekolah{
     private List<Kelas> listKelas;
 
     public Sekolah() {

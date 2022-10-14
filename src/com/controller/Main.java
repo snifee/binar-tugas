@@ -1,22 +1,20 @@
 package com.controller;
 
-import com.model.Kelas;
 import com.model.Sekolah;
-import com.service.BuatFileMeanMedian;
-import com.service.BuatFileModus;
+import com.service.Rumus;
+import com.service.impl.BuatFile1Impl;
+import com.service.impl.BuatFile2Impl;
+import com.service.impl.RumusImpl;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
     static Scanner input = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RuntimeException{
 
         int pilihan = 0;
 
@@ -42,40 +40,12 @@ public class Main {
             }
 
             try{
-//                Scanner fileReader = new Scanner(new File("data/data_sekolah.csv"));
-                BufferedReader br = new BufferedReader(new FileReader("D:\\Mine\\Downloads\\data_sekolah.csv"));
-
-                String line = "";
-
-                while((line = br.readLine())!=null){
-                    String[] nilai = line.split(";");
-
-                    Kelas kelas = new Kelas();
-
-                    List<Double> listNilai = new ArrayList<>();
-                    Double buffer = 0.0;
-
-                    for (int i = 0; i<nilai.length;i++){
-                        if(i==0){
-                            kelas.setNamaKelas(nilai[0]);
-                        }else {
-                            try {
-                                buffer = (Double.parseDouble(nilai[i]));
-                                listNilai.add(buffer);
-
-                            }catch (Exception e){
-
-                            }
-                        }
-                    }
-
-                    kelas.setNilaiSiswa(listNilai);
-
-                    sekolah.addToListkelas(kelas);
-                }
+//
+                sekolah = BacaFile.baca();
 
 
-            }catch (IOException e){
+
+            }catch (RuntimeException e){
                 System.out.println("--------------------------------");
                 System.out.println("Aplikasi Pegolah Nilai Siswa");
                 System.out.println("--------------------------------");
@@ -89,20 +59,35 @@ public class Main {
 
             if (pilihan==1){
 
-                BuatFileModus fileModus = new BuatFileModus(sekolah.NilaiKeseluruhan());
-                fileModus.CetakFile();
+                RumusImpl rumus = new RumusImpl();
+
+                HashMap<Double,Integer> modus = rumus.modus(sekolah.NilaiKeseluruhan());
+
+                BuatFile2Impl fileModus = new BuatFile2Impl();
+                fileModus.CetakFile2(modus);
 
             } else if (pilihan==2) {
 
-                BuatFileMeanMedian fileMeanMedian = new BuatFileMeanMedian(sekolah.NilaiKeseluruhan());
-                fileMeanMedian.CetakFile();
+                RumusImpl rumus = new RumusImpl();
 
+                Double median = rumus.median(sekolah.NilaiKeseluruhan());
+                Double mean = rumus.mean(sekolah.NilaiKeseluruhan());
+
+                BuatFile1Impl buatFile1 = new BuatFile1Impl();
+                buatFile1.CetakFile1(mean,median);
             } else if (pilihan==3) {
-                BuatFileModus fileModus = new BuatFileModus(sekolah.NilaiKeseluruhan());
-                fileModus.CetakFile();
+                RumusImpl rumus = new RumusImpl();
 
-                BuatFileMeanMedian fileMeanMedian = new BuatFileMeanMedian(sekolah.NilaiKeseluruhan());
-                fileMeanMedian.CetakFile();
+                HashMap<Double,Integer> modus = rumus.modus(sekolah.NilaiKeseluruhan());
+
+                BuatFile2Impl fileModus = new BuatFile2Impl();
+                fileModus.CetakFile2(modus);
+
+                Double median = rumus.median(sekolah.NilaiKeseluruhan());
+                Double mean = rumus.mean(sekolah.NilaiKeseluruhan());
+
+                BuatFile1Impl buatFile1 = new BuatFile1Impl();
+                buatFile1.CetakFile1(mean,median);
 
             }
 
